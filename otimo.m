@@ -1,4 +1,4 @@
-function [garg,val,tx,result_otimo,gargalo_otimo,sistema_otimo] = otimo(sistema,gargalos,configuracao)
+function [garg,val,tx,taxa_otima,result_otimo,gargalo_otimo,sistema_otimo] = otimo(sistema,gargalos,configuracao)
     valor_otimo = Inf;
     result_otimo = [];
     sistema_otimo = [];

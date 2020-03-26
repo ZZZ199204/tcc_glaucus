@@ -1,6 +1,6 @@
 clear all
 clc
-fprintf('Informe o SEP desejado:\n[1] 6 Barras\n[2] 14 Barras\n[3] 30 Barras\n[4] 118 Barras\n[0] Sair\n');
+fprintf('Informe o SEP desejado:\n[1] 6 Barras\n[2] 30 Barras\n[3] 118 Barras\n[0] Sair\n');
 opcao = input('-> ');
 while opcao ~= 0
     switch opcao
@@ -9,11 +9,8 @@ while opcao ~= 0
             cenarios(6);
         case 2
             clear all
-            cenarios(14)
-        case 3
-            clear all
             cenarios(30)
-        case 4
+        case 3
             clear all
             cenarios(118)
         otherwise
@@ -23,6 +20,6 @@ while opcao ~= 0
             pause
     end    
     clc
-    fprintf('Informe o SEP desejado:\n[1] 6 Barras\n[2] 14 Barras\n[3] 30 Barras\n[4] 118 Barras\n[0] Sair\n');
+    fprintf('Informe o SEP desejado:\n[1] 6 Barras\n[2] 30 Barras\n[3] 118 Barras\n[0] Sair\n');
     opcao = input('-> ');
 end

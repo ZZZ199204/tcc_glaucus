@@ -11,8 +11,6 @@ while opcao ~= 0
         case 1
             if qtd_barras == 6
                 sistema = sistema6_caso1correto;
-            elseif qtd_barras == 14
-                sistema = sistema14_caso1correto;
             elseif qtd_barras == 30
                 sistema = sistema30_caso1correto;
             elseif qtd_barras == 118
@@ -27,8 +25,6 @@ while opcao ~= 0
         case 2
             if qtd_barras == 6
                 sistema = sistema6_caso2correto;
-            elseif qtd_barras == 14
-                sistema = sistema14_caso2correto;
             elseif qtd_barras == 30
                 sistema = sistema30_caso2correto;
             elseif qtd_barras == 118
@@ -56,10 +52,9 @@ while opcao ~= 0
             printpf_caso2(resultados);
             fprintf('\nPressione enter para continuar...\n');
             pause
-            [corte,t,s] = corte_minimo(sistema)
+            [corte,t,s] = corte_minimo(sistema);
             sobrecar = sobrecarga(resultados);
-            gargalos = verifica_gargalos(corte,sobrecar,t,s)
-            pause
+            gargalos = verifica_gargalos(corte,sobrecar,t,s);
             tam_gargalos = size(gargalos);
             if tam_gargalos(1) == 0
                 clc
@@ -69,15 +64,65 @@ while opcao ~= 0
                 pause
                 gargalos = linhas_vizinhas_gargalo(sobrecar,sistema);
             end
-            [garg,valor,taxa,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema,gargalos,configurar);
+            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema,gargalos,configurar);
             resultados = runopf(sistema_otimo,configurar);
             imprime_result(garg,valor,taxa,garg_otimo);
             fprintf('\nPressione enter para continuar...\n');
             pause
             clc
-            printpf_caso2(result_otimo);
+            printpf_caso2(resultados);
             fprintf('\nPressione enter para continuar...\n');
             pause
+        case 4
+            if qtd_barras == 6
+                sistema = sistema6_caso2correto;
+            elseif qtd_barras == 30
+                sistema = sistema30_caso2correto;
+            elseif qtd_barras == 118
+                sistema = sistema118_caso2correto;
+            end
+            
+            pi_hibrido_normalizado = contingencia(sistema);
+            qtd_linhas_sistema = size(sistema.branch);
+            for m = 1:qtd_linhas_sistema
+                if sistema.branch(m,1) == pi_hibrido_normalizado(1,1) && sistema.branch(m,2) == pi_hibrido_normalizado(1,2)
+                    sistema.branch(m,11) = 0;
+                end
+            end
+
+            configurar = mpoption('pf.alg','NR','verbose',3);
+            resultados = runopf(sistema,configurar);
+            clc
+            fprintf('====================================================\n');
+            fprintf('        SISTEMA COM ANÁLISE DE CONTINGENCIA\n')
+            fprintf('====================================================\n\n\n');
+            printpf_caso2(resultados);
+            fprintf('\nPressione enter para continuar...\n');
+            pause
+            
+            [corte,t,s] = corte_minimo(sistema);
+            sobrecar = sobrecarga(resultados);
+            gargalos = verifica_gargalos(corte,sobrecar,t,s);
+            tam_gargalos = size(gargalos);
+            if tam_gargalos(1) == 0
+                gargalos = linhas_vizinhas_gargalo(sobrecar,sistema);
+            end
+
+            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema,gargalos,configurar);
+            clc
+            imprime_result(garg,valor,taxa,garg_otimo);
+            fprintf('\nPressione enter para continuar...\n');
+            pause
+            
+            resultados = runopf(sistema_otimo,configurar);
+            clc
+            fprintf('====================================================\n');
+            fprintf('            SISTEMA COM ALOCAÇÃO DO TCSC\n')
+            fprintf('====================================================\n\n\n');
+            printpf_caso2(resultados);
+            fprintf('\nPressione enter para continuar...\n');
+            pause
+            
         otherwise
             clc
             fprintf('ERRO: Opção inválida!!!\n');
