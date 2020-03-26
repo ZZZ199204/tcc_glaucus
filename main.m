@@ -1,5 +1,8 @@
 clear all
 clc
+addpath('codigos');
+addpath('mathpower');
+addpath('sistemas');
 fprintf('Informe o SEP desejado:\n[1] 6 Barras\n[2] 30 Barras\n[3] 118 Barras\n[0] Sair\n');
 opcao = input('-> ');
 while opcao ~= 0
