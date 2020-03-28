@@ -50,6 +50,8 @@ while opcao ~= 0
             resultados = runopf(sistema,configurar);
             clc
             printpf_caso2(resultados);
+            sobrecar = sobrecarga(resultados);
+            imprime_sobrecarga(sobrecar);
             fprintf('\nPressione enter para continuar...\n');
             pause
             [corte,t,s] = corte_minimo(sistema);
@@ -71,6 +73,8 @@ while opcao ~= 0
             pause
             clc
             printpf_caso2(resultados);
+            sobrecar = sobrecarga(resultados);
+            imprime_sobrecarga(sobrecar);
             fprintf('\nPressione enter para continuar...\n');
             pause
         case 4
@@ -85,9 +89,7 @@ while opcao ~= 0
             configurar = mpoption('pf.alg','NR','verbose',3);
             resultados = runopf(sistema,configurar);
             sobrecar = sobrecarga(resultados);
-            clc
-            pi_hibrido_normalizado = contingencia(sistema)
-            pause
+            pi_hibrido_normalizado = contingencia(sistema);
             qtd_linhas_sistema = size(sistema.branch);
             tam_pi = size(pi_hibrido_normalizado);
             tam_sobrecar = size(sobrecar);
@@ -120,7 +122,7 @@ while opcao ~= 0
                 configurar = mpoption('pf.alg','NR','verbose',3);
                 resultados = runopf(sistema,configurar);
                 sobrecar = sobrecarga(resultados);
-                tam_sobrecar = size(sobercar)
+                tam_sobrecar = size(sobrecar);
                 
                 if resultados.success == 0 || tam_sobrecar(1) == 0
                     for m = 1:qtd_linhas_sistema
@@ -136,12 +138,12 @@ while opcao ~= 0
                 end
             end
             clc
-            indice_pi
-            pause
             fprintf('====================================================\n');
             fprintf('        SISTEMA COM ANÁLISE DE CONTINGENCIA\n')
             fprintf('====================================================\n\n\n');
             printpf_caso2(resultados);
+            sobrecar = sobrecarga(resultados);
+            imprime_sobrecarga(sobrecar);
             fprintf('\nPressione enter para continuar...\n');
             pause
             
@@ -161,10 +163,12 @@ while opcao ~= 0
             
             resultados = runopf(sistema_otimo,configurar);
             clc
-            fprintf('====================================================\n');
-            fprintf('            SISTEMA COM ALOCAÇÃO DO TCSC\n')
-            fprintf('====================================================\n\n\n');
+            fprintf('============================================================\n');
+            fprintf('   SISTEMA COM ANÁLISE DE CONTIGÊNCIA E ALOCAÇÃO DO TCSC\n')
+            fprintf('============================================================\n\n\n');
             printpf_caso2(resultados);
+            sobrecar = sobrecarga(resultados);
+            imprime_sobrecarga(sobrecar);
             fprintf('\nPressione enter para continuar...\n');
             pause
             

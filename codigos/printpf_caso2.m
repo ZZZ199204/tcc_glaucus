@@ -691,39 +691,39 @@ if isOPF && (success || OUT_FORCE)
 %         fprintf(fd, '\n');
 %     end
 
-    %% line flow constraints
-    if upper(mpopt.opf.flow_lim(1)) == 'P' || isDC  %% |P| limit
-        Ff = branch(:, PF);
-        Ft = branch(:, PT);
-        str = '\n  #     Bus    Pf  mu     Pf      |Pmax|      Pt      Pt  mu   Bus';
-    elseif upper(mpopt.opf.flow_lim(1)) == 'I'      %% |I| limit
-        Ff = abs( (branch(:, PF) + 1j * branch(:, QF)) ./ V(e2i(branch(:, F_BUS))) );
-        Ft = abs( (branch(:, PT) + 1j * branch(:, QT)) ./ V(e2i(branch(:, T_BUS))) );
-        str = '\n  #     Bus   |If| mu    |If|     |Imax|     |It|    |It| mu   Bus';
-    else                                            %% |S| limit
-        Ff = abs(branch(:, PF) + 1j * branch(:, QF));
-        Ft = abs(branch(:, PT) + 1j * branch(:, QT));
-        str = '\n  #     Bus   |Sf| mu    |Sf|     |Smax|     |St|    |St| mu   Bus';
-    end
-    if any(branch(:, RATE_A) ~= 0) && (OUT_LINE_LIM == 2 || (OUT_LINE_LIM == 1 && ...
-                        (any(abs(Ff) > branch(:, RATE_A) - ctol) || ...
-                         any(abs(Ft) > branch(:, RATE_A) - ctol) || ...
-                         any(branch(:, MU_SF) > ptol) || ...
-                         any(branch(:, MU_ST) > ptol))))
-        fprintf(fd, '\n============================');
-        fprintf(fd, '\n|  Linhas sobrecarregadas  |');
-        fprintf(fd, '\n============================');
-        fprintf(fd, '\nBarra de        Barra para');
-        fprintf(fd, '\n---------       -----------\n');
-        tamanho = size(branch);
-        for k = 1:tamanho(1)
-            rest = sqrt(branch(k,14)^2+branch(k,15)^2);
-            if rest - 0.2 > branch(k,6) || rest + 0.2 > branch(k,6)
-                fprintf('%5d',branch(k,1)); fprintf('%17d',branch(k,2));
-                fprintf('\n');
-            end
-        end
-        cont = 1;
+%     % line flow constraints
+%     if upper(mpopt.opf.flow_lim(1)) == 'P' || isDC  %% |P| limit
+%         Ff = branch(:, PF);
+%         Ft = branch(:, PT);
+%         str = '\n  #     Bus    Pf  mu     Pf      |Pmax|      Pt      Pt  mu   Bus';
+%     elseif upper(mpopt.opf.flow_lim(1)) == 'I'      %% |I| limit
+%         Ff = abs( (branch(:, PF) + 1j * branch(:, QF)) ./ V(e2i(branch(:, F_BUS))) );
+%         Ft = abs( (branch(:, PT) + 1j * branch(:, QT)) ./ V(e2i(branch(:, T_BUS))) );
+%         str = '\n  #     Bus   |If| mu    |If|     |Imax|     |It|    |It| mu   Bus';
+%     else                                            %% |S| limit
+%         Ff = abs(branch(:, PF) + 1j * branch(:, QF));
+%         Ft = abs(branch(:, PT) + 1j * branch(:, QT));
+%         str = '\n  #     Bus   |Sf| mu    |Sf|     |Smax|     |St|    |St| mu   Bus';
+%     end
+%     if any(branch(:, RATE_A) ~= 0) && (OUT_LINE_LIM == 2 || (OUT_LINE_LIM == 1 && ...
+%                         (any(abs(Ff) > branch(:, RATE_A) - ctol) || ...
+%                          any(abs(Ft) > branch(:, RATE_A) - ctol) || ...
+%                          any(branch(:, MU_SF) > ptol) || ...
+%                          any(branch(:, MU_ST) > ptol))))
+%         fprintf(fd, '\n============================');
+%         fprintf(fd, '\n|  Linhas sobrecarregadas  |');
+%         fprintf(fd, '\n============================');
+%         fprintf(fd, '\nBarra de        Barra para');
+%         fprintf(fd, '\n---------       -----------\n');
+%         tamanho = size(branch);
+%         for k = 1:tamanho(1)
+%             rest = sqrt(branch(k,14)^2+branch(k,15)^2);
+%             if rest - 0.2 > branch(k,6) || rest + 0.2 > branch(k,6)
+%                 fprintf('%5d',branch(k,1)); fprintf('%17d',branch(k,2));
+%                 fprintf('\n');
+%             end
+%         end
+%         cont = 1;
 %         for i = 1:nl
 %             if branch(i, RATE_A) ~= 0 && (OUT_LINE_LIM == 2 || (OUT_LINE_LIM == 1 && ...
 %                    (abs(Ff(i)) > branch(i, RATE_A) - ctol || ...
@@ -747,24 +747,24 @@ if isOPF && (success || OUT_FORCE)
 %                 cont = cont + 1;
 %             end
 %         end
-        fprintf(fd, '\n');
-    end
+%         fprintf(fd, '\n');
+%     end
 end
-% 
-% %% execute userfcn callbacks for 'printpf' stage
-% if have_results_struct && isfield(results, 'userfcn') && (success || OUT_FORCE)
-%     if ~isOPF   %% turn off option for all constraints if it isn't an OPF
-%         mpopt = mpoption(mpopt, 'out.lim.all', 0);
-%     end
-%     run_userfcn(results.userfcn, 'printpf', results, fd, mpopt);
-% end
-% if OUT_ANY && ~success
-%     if OUT_FORCE
-%         if isSDP
-%             fprintf(fd, '\n>>>>>  Solution does NOT satisfy rank and/or consistency conditions (%.2f seconds).  <<<<<\nmineigratio = %0.5g, zero_eval = %0.5g\n', et, mineigratio, zero_eval);
-%         else
-%             fprintf(fd, '\n>>>>>  Did NOT converge (%.2f seconds)  <<<<<\n', et);
-%         end
-%     end
-%     fprintf('\n');
+
+%% execute userfcn callbacks for 'printpf' stage
+if have_results_struct && isfield(results, 'userfcn') && (success || OUT_FORCE)
+    if ~isOPF   %% turn off option for all constraints if it isn't an OPF
+        mpopt = mpoption(mpopt, 'out.lim.all', 0);
+    end
+    run_userfcn(results.userfcn, 'printpf', results, fd, mpopt);
+end
+if OUT_ANY && ~success
+    if OUT_FORCE
+        if isSDP
+            fprintf(fd, '\n>>>>>  Solution does NOT satisfy rank and/or consistency conditions (%.2f seconds).  <<<<<\nmineigratio = %0.5g, zero_eval = %0.5g\n', et, mineigratio, zero_eval);
+        else
+            fprintf(fd, '\n>>>>>  Did NOT converge (%.2f seconds)  <<<<<\n', et);
+        end
+    end
+    fprintf('\n');
 end
