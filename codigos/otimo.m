@@ -13,7 +13,7 @@ function [garg,val,tx,taxa_otima,result_otimo,gargalo_otimo,sistema_otimo] = oti
         [valor_k, sistema_k, result_k, taxa_k] = otimo_2(sistema,gargalo_k,configuracao);
         garg(k,:) = gargalo_k;
         val(k) = valor_k;
-        tx(k) = taxa_k; 
+        tx(k) = taxa_k;
         if valor_k < valor_otimo
             valor_otimo = valor_k;
             result_otimo = result_k;

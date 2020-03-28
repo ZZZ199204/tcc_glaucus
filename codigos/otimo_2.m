@@ -5,7 +5,7 @@ function [valor_otimo, sistema_otimo, result_otimo, k_otimo] = otimo_2(sistema,g
     sistema_otimo = sistema;
     k_otimo = 0;
     %varia o X de 0.7 a 1
-    for k = 0.25:0.01:1
+    for k = 0.25:0.01:0.8
         sistema_novo = sistema;
         for l = 1:tam_sistema(1)
             if sistema_novo.branch(l,1) == gargalo(1) && sistema_novo.branch(l,2) == gargalo(2)
