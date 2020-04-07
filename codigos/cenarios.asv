@@ -1,11 +1,9 @@
 function cenarios(qtd_barras)
 clc
-fprintf('Informe o cenario desejado: \n');
-fprintf('[1] FPO inicial sem compensacao de reativos, com limites de linhas ignorados\n');
-fprintf('[2] FPO inicial sem compensacao de reativos, considerando limites de fluxo nas linhas\n');
-fprintf('[3] FPO com alocacao de TCSC\n');
-fprintf('[4] Introdu��o da contingencia mais severa\n');
-fprintf('[5] Introducao da contingencia mais provavel\n');
+fprintf('Informe o cenário desejado: \n');
+fprintf('[1] FPO inicial sem compensação de reativos, com limites de linhas ignorados\n');
+fprintf('[2] FPO inicial sem compensação de reativos, considerando limites de fluxo nas linhas\n');
+fprintf('[3] FPO com alocação de TCSC\n');
 fprintf('[0] Voltar\n')
 opcao = input('-> ');
 while opcao ~= 0
@@ -29,6 +27,7 @@ while opcao ~= 0
             clc
             printpf_caso1(resultados1);
             fprintf('\nPressione enter para continuar...\n');
+           
             sobrecarga = sobrecarga_2(resultados1,sistema2);
             imprime_sobrecarga_2(sobrecarga);
             fprintf('\nPressione enter para continuar...\n');
@@ -89,7 +88,7 @@ while opcao ~= 0
                 pause
                 gargalos = linhas_vizinhas_gargalo(sobrecar,sistema1);
             end
-            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar,sistema2);
+            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar);
             resultados = runopf(sistema_otimo,configurar);
             imprime_result(garg,valor,taxa,garg_otimo);
             fprintf('\nPressione enter para continuar...\n');
@@ -167,7 +166,7 @@ while opcao ~= 0
             end
             clc
             fprintf('====================================================\n');
-            fprintf('        SISTEMA COM ANALISE DE CONTINGENCIA\n')
+            fprintf('        SISTEMA COM AN�?LISE DE CONTINGENCIA\n')
             fprintf('====================================================\n\n\n');
             printpf_caso2(resultados);
             sobrecar = sobrecarga_2(resultados, sistema2);
@@ -187,7 +186,7 @@ while opcao ~= 0
                 gargalos = linhas_vizinhas_gargalo(sobrecar,sistema1);
             end
 
-            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar,sistema2);
+            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar);
             clc
             imprime_result(garg,valor,taxa,garg_otimo);
             fprintf('\nPressione enter para continuar...\n');
@@ -196,7 +195,7 @@ while opcao ~= 0
             resultados = runopf(sistema_otimo,configurar);
             clc
             fprintf('============================================================\n');
-            fprintf('   SISTEMA COM ANALISE DE CONTIGENCIA E ALOCACAO DO TCSC\n')
+            fprintf('   SISTEMA COM AN�?LISE DE CONTIGÊNCIA E ALOCAÇÃO DO TCSC\n')
             fprintf('============================================================\n\n\n');
             printpf_caso2(resultados);
             sobrecar = sobrecarga_2(resultados,sistema2);
@@ -270,7 +269,7 @@ while opcao ~= 0
             end
             clc
             fprintf('====================================================\n');
-            fprintf('        SISTEMA COM ANALISE DE CONTINGENCIA\n')
+            fprintf('        SISTEMA COM AN�?LISE DE CONTINGENCIA\n')
             fprintf('====================================================\n\n\n');
             printpf_caso2(resultados);
             sobrecar = sobrecarga_2(resultados,sistema2);
@@ -290,7 +289,7 @@ while opcao ~= 0
                 gargalos = linhas_vizinhas_gargalo(sobrecar,sistema1);
             end
 
-            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar,sistema2);
+            [garg,valor,taxa,taxa_otima,result_otimo,garg_otimo,sistema_otimo] = otimo(sistema1,gargalos,configurar);
             clc
             imprime_result(garg,valor,taxa,garg_otimo);
             fprintf('\nPressione enter para continuar...\n');
@@ -299,7 +298,7 @@ while opcao ~= 0
             resultados = runopf(sistema_otimo,configurar);
             clc
             fprintf('============================================================\n');
-            fprintf('   SISTEMA COM ANALISE DE CONTIGENCIA E ALOCACAO DO TCSC\n')
+            fprintf('   SISTEMA COM AN�?LISE DE CONTIGÊNCIA E ALOCAÇÃO DO TCSC\n')
             fprintf('============================================================\n\n\n');
             printpf_caso2(resultados);
             sobrecar = sobrecarga_2(resultados,sistema2);
@@ -309,17 +308,15 @@ while opcao ~= 0
             
         otherwise
             clc
-            fprintf('ERRO: Opcao invalida!!!\n');
+            fprintf('ERRO: Opção inválida!!!\n');
             fprintf('Pressione enter para continuar...\n')
             pause
     end
     clc
-    fprintf('Informe o cenario desejado: \n');
-    fprintf('[1] FPO inicial sem compensacao de reativos, com limites de linhas ignorados\n');
-    fprintf('[2] FPO inicial sem compensacao de reativos, considerando limites de fluxo nas linhas\n');
-    fprintf('[3] FPO com alocacao de TCSC\n');
-    fprintf('[4] Introdu��o da contingencia mais severa\n');
-    fprintf('[5] Introducao da contingencia mais provavel\n');
+    fprintf('Informe o cenário desejado: \n');
+    fprintf('[1] FPO inicial sem compensação de reativos, com limites de linhas ignorados\n');
+    fprintf('[2] FPO inicial sem compensação de reativos, considerando limites de fluxo nas linhas\n');
+    fprintf('[3] FPO com alocação de TCSC\n');
     fprintf('[0] Voltar\n')
     opcao = input('-> ');
 end

@@ -1,4 +1,4 @@
-function [valor_otimo, sistema_otimo, result_otimo, k_otimo] = otimo_2(sistema,gargalo,configuracao)
+function [valor_otimo, sistema_otimo, result_otimo, k_otimo] = otimo_2(sistema,gargalo,configuracao,sistema2)
     valor_otimo = Inf;
     tam_sistema = size(sistema.branch);
     result_otimo = [];
@@ -16,7 +16,9 @@ function [valor_otimo, sistema_otimo, result_otimo, k_otimo] = otimo_2(sistema,g
         end
         %Recalcula o Fluxo de Potencia
         result = runopf(sistema_novo,configuracao);
-        if result.f < valor_otimo
+        sobrecar = sobrecarga_2(result,sistema2);
+        tam_sobrecar = size(sobrecar);
+        if result.f < valor_otimo && tam_sobrecar(1) == 0
             valor_otimo = result.f;
             sistema_otimo = sistema_novo;
             result_otimo = result;
