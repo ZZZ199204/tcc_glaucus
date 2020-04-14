@@ -4,7 +4,7 @@ fprintf('Informe o cenario desejado: \n');
 fprintf('[1] FPO inicial sem compensacao de reativos, com limites de linhas ignorados\n');
 fprintf('[2] FPO inicial sem compensacao de reativos, considerando limites de fluxo nas linhas\n');
 fprintf('[3] FPO com alocacao de TCSC\n');
-fprintf('[4] Introdução da contingencia mais severa\n');
+fprintf('[4] Introducao da contingencia mais severa\n');
 fprintf('[5] Introducao da contingencia mais provavel\n');
 fprintf('[0] Voltar\n')
 opcao = input('-> ');
@@ -118,7 +118,7 @@ while opcao ~= 0
             configurar = mpoption('pf.alg','NR','verbose',3);
             resultados = runopf(sistema1,configurar);
             sobrecar = sobrecarga_2(resultados, sistema2);
-            pi_hibrido_normalizado = contingencia(sistema1);
+            pi_hibrido_normalizado = contingencia(sistema2)
             qtd_linhas_sistema = size(sistema1.branch);
             tam_pi = size(pi_hibrido_normalizado);
             tam_sobrecar = size(sobrecar);
@@ -318,7 +318,7 @@ while opcao ~= 0
     fprintf('[1] FPO inicial sem compensacao de reativos, com limites de linhas ignorados\n');
     fprintf('[2] FPO inicial sem compensacao de reativos, considerando limites de fluxo nas linhas\n');
     fprintf('[3] FPO com alocacao de TCSC\n');
-    fprintf('[4] Introdução da contingencia mais severa\n');
+    fprintf('[4] Introducao da contingencia mais severa\n');
     fprintf('[5] Introducao da contingencia mais provavel\n');
     fprintf('[0] Voltar\n')
     opcao = input('-> ');

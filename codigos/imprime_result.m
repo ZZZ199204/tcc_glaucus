@@ -1,7 +1,7 @@
 function imprime_result(gargalo,valor,taxa,garg_otimo)
     clc
     fprintf('--------------------------------------------------\n');
-    fprintf('                     Perfil ótimo                 \n')
+    fprintf('                     Perfil Otimo                 \n')
     fprintf('--------------------------------------------------\n')
     fprintf('|      GARGALO     |   VALOR $/hr  |     TAXA    |\n');
     fprintf('--------------------------------------------------\n');
@@ -15,6 +15,6 @@ function imprime_result(gargalo,valor,taxa,garg_otimo)
     end
     fprintf('--------------------------------------------------\n');
     fprintf('\n')
-    fprintf('Linha para alocação ótima: %d - %d\n', garg_otimo(1), garg_otimo(2));
+    fprintf('Linha para alocacao otima: %d - %d\n', garg_otimo(1), garg_otimo(2));
 
 end

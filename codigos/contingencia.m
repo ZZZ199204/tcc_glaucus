@@ -35,7 +35,6 @@ function [pi_hibrido_normalizado] = contingencia(sistema)
         pi_volt(m,2) = sistema.branch(m,2);
         pi_volt(m,3) = soma;
     end
-    
     pi_hibrido = pi_flow(:,1:2);
     pi_hibrido(:,3) = 0.7*pi_flow(:,3)+0.3*pi_volt(:,3);
     pi_hibrido = sortrows(pi_hibrido,3,'descend');

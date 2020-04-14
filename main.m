@@ -22,7 +22,7 @@ while opcao ~= 0
             cenarios(118);
         otherwise
             clc
-            fprintf('ERRO: Opção inválida!!!\n');
+            fprintf('ERRO: Opcao invalida!!!\n');
             fprintf('Pressione enter para continuar...\n')
             pause
     end    

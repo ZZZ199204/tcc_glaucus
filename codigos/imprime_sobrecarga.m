@@ -12,7 +12,7 @@ function imprime_sobrecarga(sobrecarga)
         end
     else
        fprintf('\n=====================================');
-       fprintf('\nNão Existem linhas congestionadas')
+       fprintf('\nNao existem linhas congestionadas')
        fprintf('\n=====================================\n')
     end
         
